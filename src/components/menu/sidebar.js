@@ -18,9 +18,9 @@ export default class Sidebar extends Component{
 	}
 
 	render(){
-		return (
-		<div>
+		return (		
 			<div className="sidebar">
+				<h2>充电桩管理平台</h2>
 		        <Menu theme="dark"
 		          onClick={this.handleClick}
 		          style={{ width: 240 }}
@@ -71,9 +71,7 @@ export default class Sidebar extends Component{
 		            		<Menu.Item key="18">充电桩充电统计</Menu.Item>
 		          		</SubMenu>
 		        </Menu>
-	        </div>
-	        <div className="content">{this.props.children}</div>
-      	</div>
+	        </div>	
 		)
 	}
 }

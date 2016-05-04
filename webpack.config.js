@@ -1,8 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
-//var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
-    devtool:false,
+    devtool: false,
     entry: './src/index.js',
     output: {
         path: path.join(__dirname, 'dist'),
@@ -10,11 +10,10 @@ module.exports = {
         publicPath: '/dist/'
     },
     externals: {
-      'react': 'React',
-      'react-dom':'ReactDOM' 
+        'react': 'React',
+        'react-dom': 'ReactDOM'
     },
     plugins: [
-        //new ExtractTextPlugin("wj.css"),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
@@ -26,13 +25,17 @@ module.exports = {
                 warnings: false
             }
         }),
-        new webpack.optimize.OccurenceOrderPlugin()
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new ExtractTextPlugin('styles.css')
     ],
     module: {
         loaders: [{
             test: /\.js$/,
             loaders: ['babel'],
             exclude: /node_modules/
+        }, {
+            test: /\.less$/,
+            loader: ExtractTextPlugin.extract("style-loader", "css-loader", "less-loader")
         }]
     }
 };

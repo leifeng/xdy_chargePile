@@ -11,29 +11,33 @@ import syncHistoryWithStore from 'react-router-redux/lib/sync';
 
 import reducers from '../reducers/index';
 import configureStore from '../store/index';
+// component
+import Index from '../components/index';
+import UserGroup  from "../components/user/group.js";
 
-import Sidebar from '../components/sidebar'
 
 const store=configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-
-class Index extends Component{
-	render(){
-		return <div>ffffffff</div>
-	}
-}
 class NoMatch extends Component{
 	render(){
 		return <h1>404</h1>
 	}
 }
+class Info extends Component{
+	render(){
+		return <div>info</div>
+	}
+}
+function requireAuth(){
+	console.log('aaaaaaa')
+}
 const App=()=>{
 	return (
 		<Provider store={store}>
 			<Router history={history}>
-				<Route path="/" component={Sidebar}>
-					<Route path="index" component={Index}/>
+				<Route onEnter={requireAuth} path="/" component={Index}>
+					<Route path="index" component={UserGroup}/>
 				</Route>	
 				<Route path="*" component={NoMatch}/>			
 			</Router>
