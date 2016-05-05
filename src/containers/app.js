@@ -19,7 +19,7 @@ import Index from '../components/index';
 import UserGroup  from "../components/user/group.js";
 import RealTime  from "../components/chargeStatus/realtime.js";
 import MapShow from "../components/demo/map.js";
-
+import Charts from '../components/demo/charts.js';
 const store=configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -42,7 +42,7 @@ const App=()=>{
 			<Router history={history}>
 				<Route onEnter={requireAuth} breadcrumbName="首页" path="/" component={Index}>
 					<Route path="index" component={UserGroup}/>
-					<Route path="realtime" component={RealTime}/>
+					<Route path="charts" component={Charts}/>
 					<Route path="map" breadcrumbName="地图" component={MapShow}/>
 					<Route path="crud" breadcrumbName="增删改" component={UserGroup}/>
 				</Route>	

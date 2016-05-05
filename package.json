@@ -51,6 +51,6 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
-    "antd": "^0.12.16"
+    "antd": "^0.12.17"
   }
 }

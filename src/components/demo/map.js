@@ -159,16 +159,10 @@ export default class MapShow extends React.Component {
        var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
 
        //更改一些参数设置，比如GridSize， maxZoom
-       var btnOpen = document.getElementById('btnText');
-       btnOpen.onclick = function (event) {
-           markerClusterer.setGridSize(100);          
-       };
+
 
        var newPt = new BMap.Point(116.404, 39.895);
-       var btnClose = document.getElementById('btnPoint');
-       btnClose.onclick = function () {
-           markerClusterer.setMaxZoom(7);         
-       };
+
 
         var myStyles = [{
             url: EXAMPLE_URL + 'images/heart30.png',
@@ -190,28 +184,11 @@ export default class MapShow extends React.Component {
             opt_textSize: 14
         }];
 
-        var btnStyles = document.getElementById('btnStyles');
-        btnStyles.onclick = function (event) {
-            markerClusterer.setStyles(myStyles);
-        };
 
         //添加和删除Markers
         var newMarkers = getNewMarkers(MAX);
 
-        var btnAddMarkers = document.getElementById('btnAddMarkers');
-        btnAddMarkers.onclick = function (event) {
-            if(!newMarkers.length){
-                //如果之前的markers被清空了，则重新生成
-                newMarkers = getNewMarkers(MAX);
-            };
-            markerClusterer.addMarkers(newMarkers);
- 
-        };
 
-        var btnRemoveMarkers = document.getElementById('btnRemoveMarkers');
-        btnRemoveMarkers.onclick = function (event) {         
-            markerClusterer.removeMarkers(newMarkers);      
-        };
         /**
          * 得到一个随机的marker数组。
          * @param  {Number} 数组的长度

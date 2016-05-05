@@ -35,13 +35,13 @@ export default class MainMenu extends React.Component{
 					        selectedKeys={[this.state.current]}
 					        mode="horizontal" style={{lineHeight:'60px'}}>
 					        <Menu.Item key="mail">
-					        	<Link to="/"><Icon type="mail" />首页</Link>
+					        	<Link to="/charts"><Icon type="mail" />首页</Link>
 					        </Menu.Item>
 					        <Menu.Item key="app">
-					          <Link to="/map"><Icon type="appstore" />地图</Link>
+					          	<Link to="/map"><Icon type="appstore" />地图</Link>
 					        </Menu.Item>
 					        <Menu.Item key="app2">
-					          <Link to="/crud"><Icon type="area-chart" />增删改</Link>
+					          	<Link to="/crud"><Icon type="area-chart" />增删改</Link>
 					        </Menu.Item>
 					        <Menu.Item key="app3">
 					          <Icon type="setting" />导航四
