@@ -2,55 +2,30 @@ import React from "react";
 // import Table from "antd/lib/table";
 // import Icon from 'antd/lib/icon';
 
-import { Form, Input, Row, Col, Button,Table,Icon,DatePicker,Select,Cascader ,Popconfirm,Pagination ,Modal} from 'antd';
+import { Form, Input, Row, Col, Button,Table,Icon,DatePicker,Select,Cascader ,Popconfirm,Pagination ,Modal,Upload, Checkbox, Radio,Tooltip} from 'antd';
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
-const columns = [{
-  title: '姓名',
-  dataIndex: 'name',
-  key: 'name',
-  render(text) {
-    return <a href="#">{text}</a>;
-  }
-}, {
-  title: '年龄',
-  dataIndex: 'age',
-  key: 'age',
-}, {
-  title: '住址',
-  dataIndex: 'address',
-  key: 'address',
-}, {
-  title: '操作',
-  key: 'operation',
-  render(text, record) {
-    return (
-      <span>
-        <a href="#" onClick={UserGroup.showModal}>编辑</a>
-        <span className="ant-divider"></span>
-        <Popconfirm placement="top" title="确定要删除这个吗？">
-          <a href="#">删除</a>
-        </Popconfirm>
-      </span>
-    );
-  }
-}];
+const RadioGroup = Radio.Group;
+
 const data = [{
   key: '1',
   name: '胡彦斌',
   age: 32,
-  address: '西湖区湖底公园1号'
+  address: '西湖区湖底公园1号',
+  description:'xdfasdfs'
 }, {
   key: '2',
   name: '胡彦祖',
   age: 42,
-  address: '西湖区湖底公园1号'
+  address: '西湖区湖底公园1号',
+  description:'xdfasdfs'
 }, {
   key: '3',
   name: '李大嘴',
   age: 32,
-  address: '西湖区湖底公园1号'
+  address: '西湖区湖底公园1号',
+  description:'xdfasdfs'
 }];
 const options = [{
   value: 'zhejiang',
@@ -86,6 +61,10 @@ const options = [{
 //     console.log(selected, selectedRows, changeRows);
 //   },
 // };
+function handleSelectChange(value) {
+  console.log(`selected ${value}`);
+}
+
 function onChange(value) {
   console.log('From: ', value[0], ', to: ', value[1]);
 }
@@ -113,6 +92,7 @@ export default class UserGroup extends React.Component{
     this.onSelectChange=this.onSelectChange.bind(this);
     this.showModal=this.showModal.bind(this);
     this.handleOk=this.handleOk.bind(this);
+    this.renderAction=this.renderAction.bind(this);
     this.handleCancel=this.handleCancel.bind(this);
   }
   showModal() {
@@ -152,6 +132,15 @@ export default class UserGroup extends React.Component{
       selectedRowKeys
     });
   }
+  renderAction(){
+    return (      <span>
+        <a href="#" onClick={this.showModal}>编辑</a>
+        <span className="ant-divider"></span>
+        <Popconfirm placement="top" title="确定要删除这个吗？">
+          <a href="#">删除</a>
+        </Popconfirm>
+      </span>)
+  }
 	render(){
     const {loading,selectedRowKeys} = this.state;
     const rowSelection = {
@@ -169,6 +158,26 @@ export default class UserGroup extends React.Component{
         console.log('Current: ', current);
       }
     };
+const columns = [{
+  title: '姓名',
+  dataIndex: 'name',
+  key: 'name',
+  render(text) {
+    return <a href="#">{text}</a>;
+  }
+}, {
+  title: '年龄',
+  dataIndex: 'age',
+  key: 'age',
+}, {
+  title: '住址',
+  dataIndex: 'address',
+  key: 'address',
+}, {
+  title: '操作',
+  key: 'operation',
+  render:this.renderAction
+}];
 		return (
       <div>
       <Form horizontal className="advanced-search-form">
@@ -226,24 +235,110 @@ export default class UserGroup extends React.Component{
           </Col>
         </Row>
       </Form>
+
       <div style={{ marginBottom: 16 }}>
-          <Button type="primary" onClick={this.showModal}>
+
+         <Button type="primary" onClick={this.showModal}>
             <Icon type="plus" />
-             &nbsp;添加
-          </Button>&nbsp;
-          <Button type="ghost" onClick={this.start}
-             disabled={!hasSelected} loading={loading}>
-             <Icon type="delete" />
-              &nbsp;批量删除
-          </Button>
-          <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 个对象` : ''}</span>
+            &nbsp;添加记录
+        </Button>
+        &nbsp;
+        <Upload className="upload">
+            <Button type="ghost">
+              <Icon type="upload" /> 导入数据
+            </Button>
+        </Upload>
+        &nbsp;
+      <Button type="ghost" onClick={this.start}
+           disabled={!hasSelected} loading={loading}>
+           <Icon type="delete" />
+            &nbsp;批量删除
+        </Button>
+        &nbsp;
       </div>
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data}  pagination={pagination}  bordered/>
-        <Modal title="第一个 Modal" visible={this.state.visible}
+
+      <Table 
+      expandedRowRender={record => <p>{record.description}</p>}
+      rowSelection={rowSelection} 
+      columns={columns} 
+      dataSource={data} 
+       pagination={pagination}  
+       bordered/>
+        <Modal title="添加/编辑" visible={this.state.visible}
           onOk={this.handleOk} onCancel={this.handleCancel}>
-          <p>对话框的内容</p>
-          <p>对话框的内容</p>
-          <p>对话框的内容</p>
+            <Form horizontal>
+
+            <FormItem
+              id="control-input"
+              label="输入框："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 14 }}>
+              <Input id="control-input" placeholder="Please enter..." />
+            </FormItem>
+
+            <FormItem
+              id="control-textarea"
+              label="文本域："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 14 }}>
+              <Input type="textarea" id="control-textarea" rows="3" />
+            </FormItem>
+
+            <FormItem
+              id="select"
+              label="Select 选择器："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 14 }}>
+              <Select id="select" size="large" defaultValue="lucy" style={{ width: 200 }} onChange={handleSelectChange}>
+                <Option value="jack">jack</Option>
+                <Option value="lucy">lucy</Option>
+                <Option value="disabled" disabled>disabled</Option>
+                < Option value="yiminghe">yiminghe</Option>
+              </Select>
+            </FormItem>
+
+            <FormItem
+              label="Checkbox 多选框："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 18 }} >
+              <label className="ant-checkbox-vertical">
+                <Checkbox />选项一
+              </label>
+              <label className="ant-checkbox-vertical">
+                <Checkbox />选项二
+              </label>
+              <label className="ant-checkbox-vertical">
+                <Checkbox disabled />选项三（不可选）
+              </label>
+            </FormItem>
+
+            <FormItem
+              label="Checkbox 多选框："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 18 }} >
+              <label className="ant-checkbox-inline">
+                <Checkbox />选项一
+              </label>
+              <label className="ant-checkbox-inline">
+                <Checkbox />选项二
+              </label>
+              <label className="ant-checkbox-inline">
+                <Checkbox />选项三
+              </label>
+            </FormItem>
+
+            <FormItem
+              label="Radio 单选框："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 18 }} >
+              <RadioGroup>
+                <Radio value="a">A</Radio>
+                <Radio value="b">B</Radio>
+                <Radio value="c">C</Radio>
+                <Radio value="d">D</Radio>
+              </RadioGroup>
+            </FormItem>
+          </Form>
         </Modal>
       </div>
 		

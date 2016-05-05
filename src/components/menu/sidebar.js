@@ -23,7 +23,7 @@ export default class Sidebar extends Component{
 				<h2>充电桩管理平台</h2>
 		        <Menu theme="dark"
 		          onClick={this.handleClick}
-		          style={{ width: 240 }}
+		          style={{ width: 180 }}
 		          defaultOpenKeys={['sub1']}		          
 		          mode="inline">
 			          	<SubMenu key="sub1" title={<span><Icon type="mail" /><span>用户管理</span></span>}>			          		
@@ -31,7 +31,7 @@ export default class Sidebar extends Component{
 				           	<Menu.Item key="2">用户管理</Menu.Item>     
 			          	</SubMenu>
 			          	<SubMenu key="sub2" title={<span><Icon type="appstore" /><span>充电站/桩状态</span></span>}>
-				            <Menu.Item key="3">实时查询</Menu.Item>
+			          		<Menu.Item key="3"><Link to="/realtime">实时查询</Link></Menu.Item>
 				            <Menu.Item key="4">定时更新</Menu.Item>   
 			             	<Menu.Item key="5">定时设置</Menu.Item>      
 			          	</SubMenu>

@@ -11,10 +11,14 @@ import syncHistoryWithStore from 'react-router-redux/lib/sync';
 
 import reducers from '../reducers/index';
 import configureStore from '../store/index';
+
+import { Breadcrumb } from 'antd'
+
 // component
 import Index from '../components/index';
 import UserGroup  from "../components/user/group.js";
-
+import RealTime  from "../components/chargeStatus/realtime.js";
+import MapShow from "../components/demo/map.js";
 
 const store=configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
@@ -36,8 +40,11 @@ const App=()=>{
 	return (
 		<Provider store={store}>
 			<Router history={history}>
-				<Route onEnter={requireAuth} path="/" component={Index}>
+				<Route onEnter={requireAuth} breadcrumbName="首页" path="/" component={Index}>
 					<Route path="index" component={UserGroup}/>
+					<Route path="realtime" component={RealTime}/>
+					<Route path="map" breadcrumbName="地图" component={MapShow}/>
+					<Route path="crud" breadcrumbName="增删改" component={UserGroup}/>
 				</Route>	
 				<Route path="*" component={NoMatch}/>			
 			</Router>
