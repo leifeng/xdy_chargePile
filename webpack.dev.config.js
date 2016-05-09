@@ -8,12 +8,11 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'chargepile.js',
     publicPath: '/dist/'
   },
   externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
+    'echarts': 'echarts'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -24,6 +23,9 @@ module.exports = {
       test: /\.js$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
+    }, {
+      test: /\.css$/,
+      loaders: ["style", "css"]
     }, {
       test: /\.less$/,
       loaders: ["style", "css", "less"]

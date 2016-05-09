@@ -1,4 +1,5 @@
 import React from 'react';
+import FastLink from './fastlink.js';
 import { Menu, Icon } from 'antd';
 const SubMenu = Menu.SubMenu;
 
@@ -30,7 +31,8 @@ export default class LeftSubMenu  extends React.Component {
     render() {
         return (
 	        <div className="subMenu">
-		      <Menu onClick={this.handleClick}
+	        	<FastLink/>
+		      	<Menu onClick={this.handleClick}
 		        style={{ width: 180 }}
 		        openKeys={this.state.openKeys}
 		        onOpen={this.onToggle}

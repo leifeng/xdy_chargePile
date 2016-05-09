@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
 
 import Provider from 'react-redux/lib/components/Provider';
-
-import Router from 'react-router/lib/Router';
-import Route from 'react-router/lib/Route';
-import browserHistory from 'react-router/lib/browserHistory';
-import IndexRoute from 'react-router/lib/IndexRoute';
+import {Router,Route,browserHistory,IndexRoute} from 'react-router';
+// import Router from 'react-router/lib/Router';
+// import Route from 'react-router/lib/Route';
+// import browserHistory from 'react-router/lib/browserHistory';
+// import IndexRoute from 'react-router/lib/IndexRoute';
 
 import syncHistoryWithStore from 'react-router-redux/lib/sync';
 
@@ -15,11 +15,12 @@ import configureStore from '../store/index';
 import { Breadcrumb } from 'antd'
 
 // component
-import Index from '../components/index';
-import UserGroup  from "../components/user/group.js";
-import RealTime  from "../components/chargeStatus/realtime.js";
-import MapShow from "../components/demo/map.js";
-import Charts from '../components/demo/charts.js';
+import Main from '../components/main';
+import Index from '../components/index/index';
+import UserGroup  from "../components/user/group";
+import RealTime  from "../components/chargeStatus/realtime";
+import MapShow from "../components/demo/map";
+import Charts from '../components/demo/charts';
 const store=configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -40,7 +41,8 @@ const App=()=>{
 	return (
 		<Provider store={store}>
 			<Router history={history}>
-				<Route onEnter={requireAuth} breadcrumbName="首页" path="/" component={Index}>
+				<Route onEnter={requireAuth} breadcrumbName="首页" path="/" component={Main}>
+					<IndexRoute component={Index}/>
 					<Route path="index" component={UserGroup}/>
 					<Route path="charts" component={Charts}/>
 					<Route path="map" breadcrumbName="地图" component={MapShow}/>

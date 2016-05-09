@@ -1,17 +1,20 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     devtool: false,
-    entry: './src/index.js',
+    entry: {
+        chargepile:'./src/index.js',
+        vendor: ['react','react-dom','react-router','antd']
+    },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/dist/'
+        filename: '[name]-[chunkhash:6].js',
+        publicPath: 'dist/'
     },
     externals: {
-        'react': 'React',
-        'react-dom': 'ReactDOM'
+        'echarts':'echarts'
     },
     plugins: [
         new webpack.NoErrorsPlugin(),
@@ -25,8 +28,13 @@ module.exports = {
                 warnings: false
             }
         }),
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
         new webpack.optimize.OccurenceOrderPlugin(),
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new HtmlWebpackPlugin({
+            filename:'../index.html',
+            template:'./app.html'
+        })
     ],
     module: {
         loaders: [{
@@ -35,7 +43,10 @@ module.exports = {
             exclude: /node_modules/
         }, {
             test: /\.less$/,
-            loader: ExtractTextPlugin.extract("style-loader", "css-loader", "less-loader")
+            loader: ExtractTextPlugin.extract(
+                'css!' +
+                'less'
+            )
         }]
     }
 };

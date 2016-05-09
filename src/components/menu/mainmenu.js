@@ -1,5 +1,5 @@
 import React  from "react";
-import Link from 'react-router/lib/Link';
+import {Link} from 'react-router';
 import {Menu,Icon,Row,Col,Button} from 'antd';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -22,12 +22,8 @@ export default class MainMenu extends React.Component{
 	render(){
 		return (
 			<div className="mainMenu">
-				<Row type="flex" justify="end" className="top">
-					<Col span="2" offset="21">管理员:xxxx</Col>
-					<Col span="1" className="logout">退出</Col>
-				</Row>
 				<Row type="flex" justify="end" className="menus">
-					<Col span="10">
+					<Col span="7">
 						<img src="https://www.baidu.com/img/baidu_jgylogo3.gif" className="logo"/>
 					</Col>
 					<Col span="14">
@@ -35,28 +31,35 @@ export default class MainMenu extends React.Component{
 					        selectedKeys={[this.state.current]}
 					        mode="horizontal" style={{lineHeight:'60px'}}>
 					        <Menu.Item key="mail">
-					        	<Link to="/charts"><Icon type="mail" />首页</Link>
+					        	<Link to="/"><Icon type="home" />首页</Link>
+					        </Menu.Item>
+					        <Menu.Item key="map">
+					          	<Link to="/map"><Icon type="environment-o" />电桩地图</Link>
 					        </Menu.Item>
 					        <Menu.Item key="app">
-					          	<Link to="/map"><Icon type="appstore" />地图</Link>
+					        	<Link to="/map"><Icon type="download" />APP下载</Link>
 					        </Menu.Item>
-					        <Menu.Item key="app2">
-					          	<Link to="/crud"><Icon type="area-chart" />增删改</Link>
+					        <Menu.Item key="rent">
+					          	<Link to="/crud"><Icon type="search" />租车</Link>
 					        </Menu.Item>
-					        <Menu.Item key="app3">
-					          <Icon type="setting" />导航四
-					        </Menu.Item>
-					        <Menu.Item key="app4">
-					          <Icon type="team" />导航五
-					        </Menu.Item>
-					        <Menu.Item key="app5">
-					          <Icon type="picture" />导航六
+			                <SubMenu title={<span><Icon type="user" />我的</span>}>
+					            <Menu.Item key="user:1"><Link to="/crud"><Icon type="star-o" />收藏</Link></Menu.Item>
+					            <Menu.Item key="user:2"><Link to="/crud"><Icon type="poweroff" />充电记录</Link></Menu.Item>
+					            <Menu.Item key="user:3"><Link to="/crud"><Icon type="pay-circle-o" />支付记录</Link></Menu.Item>
+					            <Menu.Item key="user:4"><Link to="/crud"><Icon type="team" />预约记录</Link></Menu.Item>
+					        </SubMenu>
+					        <Menu.Item key="setting">
+					          	<Link to="/crud"><Icon type="setting" />系统管理</Link>
 					        </Menu.Item>
 					    </Menu>
 					</Col>
+					<Col span="3">
+						<img className="ui avatar image" src="http://www.semantic-ui.cn/images/wireframe/square-image.png"/>
+						<span>Username</span>
+						<a className="logout">退出</a>
+					</Col>
 				</Row>
 			</div>
-
 		)
 	}
 }
